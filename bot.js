@@ -30,6 +30,10 @@ function createBot() {
 
    bot.loadPlugin(pathfinder);
    const mcData = require('minecraft-data')(bot.version);
+  // ⚠️ FIX lỗi dimension undefined từ server
+if (!bot.registry?.dimensionsByName?.[bot.game.dimension]) {
+  bot.registry.dimensionsByName[bot.game.dimension] = { minY: 0, height: 256 };
+}
    const defaultMove = new Movements(bot, mcData);
    bot.settings.colorsEnabled = false;
    bot.pathfinder.setMovements(defaultMove);
